@@ -4,164 +4,885 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>张三的个人简介</title>
-    <link rel="stylesheet" href="./index.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap"
-        rel="stylesheet">
+    <title id="i18n-page-title">专业橄榄绿风格主页</title>
+    <style>
+        /* --- 统一橄榄绿色系颜色与变量 (基于 #3D422F) --- */
+        :root {
+            /* 核心深色 (专业可靠): 深橄榄绿 (用于文本和主要深色) */
+            --primary-deep: #3D422F;
+
+            /* 强调色 (几何结构/行动色) */
+            --accent-strong: #708A5E;
+            /* 苔藓绿 - 主要强调色 */
+            --accent-medium: #A2B591;
+            /* 柔和橄榄 - 次要强调色 */
+            --accent-light: #DCE2C9;
+            /* 浅灰绿 - 辅助和背景高亮 */
+
+            /* 毛玻璃参数 (专业质感) */
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-bg-soft: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --glass-shadow: rgba(0, 0, 0, 0.08);
+            --blur-amount: 18px;
+
+            /* 通用参数 */
+            --border-radius: 16px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --font-family-sans: 'Inter', sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-family-sans);
+        }
+
+        /* --- 主体背景 (柔和橄榄绿渐变) --- */
+        body {
+            /* 柔和的浅橄榄绿渐变，衬托深色主体 */
+            background: linear-gradient(135deg, #F8F8F5 0%, #DCE2C9 100%);
+            color: var(--primary-deep);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        /* --- 容器布局 - 主毛玻璃卡片 (Glassmorphism) --- */
+        .container {
+            width: 100%;
+            max-width: 850px;
+
+            /* 毛玻璃效果 */
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--blur-amount));
+            -webkit-backdrop-filter: blur(var(--blur-amount));
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 40px var(--glass-shadow);
+
+            overflow: hidden;
+            position: relative;
+            animation: fadeIn 0.8s ease-out;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- 头部区域 (简洁专业) --- */
+        .header {
+            text-align: center;
+            padding: 30px 20px;
+            /* 使用半透明的深橄榄绿 */
+            background: rgba(61, 66, 47, 0.08);
+            color: var(--primary-deep);
+            border-bottom: 1px solid var(--glass-border);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .avatar-container {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 10px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.9);
+            overflow: hidden;
+            /* 使用深橄榄绿作为头像背景 */
+            background: var(--primary-deep);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            font-weight: 400;
+        }
+
+        /* 语言切换按钮 - 保持简洁 */
+        .lang-toggle-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.6);
+            color: var(--primary-deep);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            padding: 6px 10px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: var(--transition);
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* --- 跑马灯 (使用苔藓绿强调) --- */
+        .marquee-strip {
+            width: 100%;
+            overflow: hidden;
+            padding: 8px 0;
+            background-color: var(--accent-strong);
+            /* 苔藓绿 */
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            transition: opacity 0.8s ease-out;
+        }
+
+        .marquee-content {
+            animation: marquee 30s linear infinite;
+        }
+
+        .marquee-text {
+            padding-right: 40px;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* --- 内容卡片 (Section) --- */
+        .content {
+            padding: 25px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            flex-grow: 1;
+        }
+
+        /* Section 卡片 (次级毛玻璃效果) */
+        .section {
+            background: var(--glass-bg-soft);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 12px;
+            padding: 20px;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        /* 标题下划线 (使用苔藓绿几何色块) */
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--primary-deep);
+            position: relative;
+            padding-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 4px;
+            background: var(--accent-strong);
+            /* 结构色：苔藓绿 */
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        /* 爱好网格 */
+        .hobbies-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        /* 爱好卡片 (Glassmorphism 结合 橄榄绿动态高亮色) */
+        .hobby-card {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 15px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .hobby-card:hover {
+            transform: translateY(-3px);
+            background: var(--accent-light);
+            /* 动态高亮色：浅灰绿 */
+            color: var(--primary-deep);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .hobby-icon {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .hobby-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* --- 能力卡片 (Glassmorphism + 绿色系边框) --- */
+        .fishbone-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .major-bone {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 15px;
+            border-left: 6px solid var(--accent-strong);
+            /* 粗几何边框 - 苔藓绿 */
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        /* 颜色交替，强化结构感 (使用不同的橄榄绿色调) */
+        .major-bone:nth-child(2) {
+            border-left-color: var(--accent-medium);
+        }
+
+        /* 柔和橄榄 */
+        .major-bone:nth-child(3) {
+            border-left-color: var(--accent-light);
+            color: var(--primary-deep);
+        }
+
+        /* 浅灰绿 */
+
+        .major-bone:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: scale(1.01);
+        }
+
+        .bone-label {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--primary-deep);
+            margin-bottom: 5px;
+            position: relative;
+        }
+
+        .bone-label::after {
+            content: attr(data-subtitle);
+            font-weight: 400;
+            font-size: 0.8rem;
+            color: #7f8c8d;
+            margin-left: 10px;
+        }
+
+        .sub-bone {
+            font-size: 0.85rem;
+            color: #5A5A5A;
+            padding: 2px 0;
+            margin-left: 15px;
+            position: relative;
+        }
+
+        .sub-bone::before {
+            content: '•';
+            color: var(--primary-deep);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        /* 联系按钮 (使用苔藓绿作为主行动色) */
+        .contact-row {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .contact-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            color: white;
+            background-color: var(--accent-strong);
+            /* 苔藓绿作为行动色 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-btn:hover {
+            background-color: #5B734C;
+            /* 略深 */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* --- 模态窗口和 Toast 保持 Glassmorphism 风格 --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-card {
+            transform: scale(0.9);
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: scale(1);
+        }
+
+        .modal-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--blur-amount));
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px var(--glass-shadow);
+            max-width: 400px;
+            border-radius: 16px;
+            padding: 25px;
+            position: relative;
+            color: var(--primary-deep);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: transparent;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-deep);
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+
+        .modal-close:hover {
+            opacity: 1;
+        }
+
+        .project-tag {
+            background: rgba(112, 138, 94, 0.15);
+            /* 苔藓绿半透明标签 */
+            color: var(--accent-strong);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            margin-top: 8px;
+            margin-right: 8px;
+            border: 1px solid rgba(112, 138, 94, 0.3);
+            display: inline-block;
+        }
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -50px;
+            opacity: 0;
+            background: var(--primary-deep);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.5s ease-out;
+            z-index: 2000;
+        }
+
+        .toast.show {
+            bottom: 25px;
+            opacity: 1;
+        }
+
+        /* --- 响应式调整 --- */
+        @media (max-width: 768px) {
+            .container {
+                max-width: 100%;
+                margin-top: 0;
+                border-radius: 0;
+            }
+
+            body {
+                padding: 0;
+                align-items: flex-start;
+            }
+
+            .content {
+                padding: 15px;
+                gap: 15px;
+            }
+
+            .hobbies-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .contact-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .section {
+                padding: 15px;
+            }
+
+            .section-title {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
 </head>
 
-<body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#home">首页</a></li>
-                <li><a href="#about">关于我</a></li>
-                <li><a href="#skills">技能</a></li>
-                <li><a href="#projects">项目</a></li>
-                <li><a href="#contact">联系</a></li>
-            </ul>
-        </nav>
-    </header>
+<body onload="document.body.classList.add('loaded')">
 
-    <main>
-        <section id="home" class="hero">
-            <div class="container">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-                    alt="张三的头像" class="avatar">
-                <h1>你好，我是 <span class="highlight">张三</span></h1>
-                <p class="tagline">前端开发者 | 技术爱好者 | 问题解决者</p>
-                <p class="intro">我热衷于创造美观、易用且高效的Web体验，专注于现代前端技术和最佳实践。</p>
-                <a href="#contact" class="btn">联系我</a>
+    <div class="container">
+
+        <header class="header">
+            <button class="lang-toggle-btn" id="langToggle" onclick="toggleLanguage()">English</button>
+            <div class="avatar-container">
+                <!-- 使用深橄榄绿背景占位符 -->
+                <img src="./images/avatar.jpg" alt="Avatar" class="avatar-img">
             </div>
-        </section>
+            <h1 class="name" id="i18n-name">张三 (Alex)</h1>
+            <p class="tagline" id="i18n-tagline">独立开发者 / 摄影爱好者 / 终身学习者</p>
+        </header>
 
-        <section id="about" class="section">
-            <div class="container">
-                <h2>关于我</h2>
-                <div class="about-content">
-                    <p>我是一名拥有3年经验的前端开发工程师，对Web技术充满热情。毕业于XX大学计算机科学专业，目前在YY科技公司担任前端开发职位。</p>
-                    <p>我坚信优秀的代码和用户体验可以改变世界。在工作中，我注重细节，喜欢解决复杂问题，并乐于学习新技术。</p>
-                    <p>空闲时间，我喜欢阅读技术博客、参加开发者大会，并在开源项目中贡献代码。</p>
-                </div>
+
+        <div class="marquee-strip">
+            <div class="marquee-content" id="i18n-marquee">
+                <!-- 跑马灯内容将通过 JavaScript 动态加载，确保多语言支持 -->
             </div>
-        </section>
-
-        <section id="skills" class="section bg-light">
-            <div class="container">
-                <h2>技术技能</h2>
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <h3><i class="fas fa-code"></i> 前端技术</h3>
-                        <ul>
-                            <li>HTML5 & CSS3</li>
-                            <li>JavaScript (ES6+)</li>
-                            <li>React & Vue.js</li>
-                            <li>响应式设计</li>
-                        </ul>
-                    </div>
-                    <div class="skill-category">
-                        <h3><i class="fas fa-tools"></i> 开发工具</h3>
-                        <ul>
-                            <li>Git & GitHub</li>
-                            <li>Webpack & Vite</li>
-                            <li>VS Code</li>
-                            <li>Chrome DevTools</li>
-                        </ul>
-                    </div>
-                    <div class="skill-category">
-                        <h3><i class="fas fa-language"></i> 语言能力</h3>
-                        <ul>
-                            <li>中文 (母语)</li>
-                            <li>英语 (流利, CET-6)</li>
-                            <li>日语 (基础, N3)</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="projects" class="section">
-            <div class="container">
-                <h2>项目作品</h2>
-                <div class="projects-grid">
-                    <div class="project-card">
-                        <div class="project-icon">
-                            <i class="fas fa-shopping-cart"></i>
-                        </div>
-                        <h3>电商管理系统</h3>
-                        <p>基于React和Node.js开发的完整电商后台管理系统，包含商品管理、订单处理和数据分析模块。</p>
-                        <a href="#" class="project-link">查看详情 →</a>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <h3>数据可视化平台</h3>
-                        <p>使用D3.js和Vue.js构建的数据可视化仪表板，支持多种图表类型和数据实时更新。</p>
-                        <a href="#" class="project-link">查看详情 →</a>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-icon">
-                            <i class="fas fa-mobile-alt"></i>
-                        </div>
-                        <h3>旅行助手App</h3>
-                        <p>跨平台移动应用，使用React Native开发，提供行程规划、景点推荐和实时导航功能。</p>
-                        <a href="#" class="project-link">查看详情 →</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="section bg-light">
-            <div class="container">
-                <h2>联系我</h2>
-                <p class="contact-intro">对我的工作感兴趣？欢迎通过以下方式与我联系！</p>
-                <div class="contact-methods">
-                    <a href="mailto:zhangsan@example.com" class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>zhangsan@example.com</span>
-                    </a>
-                    <a href="https://github.com/yourusername" class="contact-item" target="_blank">
-                        <i class="fab fa-github"></i>
-                        <span>GitHub</span>
-                    </a>
-                    <a href="https://linkedin.com/in/yourusername" class="contact-item" target="_blank">
-                        <i class="fab fa-linkedin"></i>
-                        <span>LinkedIn</span>
-                    </a>
-                    <a href="tel:+8613800138000" class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <span>+86 138 0013 8000</span>
-                    </a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>© <span id="currentYear"></span> 张三 版权所有。本页面托管于GitHub Pages。</p>
-            <p class="footer-note">最后更新于: <span id="updateDate"></span></p>
         </div>
-    </footer>
+
+
+        <div class="content">
+
+            <div class="section fade-in-section">
+                <h2 class="section-title" id="i18n-about-title">关于我</h2>
+                <p class="text-block" id="i18n-about-text">
+                    你好！我是一名充满热情的前端开发者。我热衷于创造简洁、高效且美观的数字产品。我专注于将用户体验设计和强大的工程能力相结合，以交付稳定、可靠的解决方案。我相信技术是为了更好地服务于人。
+                </p>
+            </div>
+
+
+            <div class="section fade-in-section">
+                <h2 class="section-title" id="i18n-hobbies-title">我的爱好与经历</h2>
+                <div class="hobbies-grid">
+                    <div class="hobby-card" onclick="openModal('photography')">
+                        <span class="hobby-icon">📷</span>
+                        <div class="hobby-name" data-i18n-hobby="photography">摄影</div>
+                    </div>
+                    <div class="hobby-card" onclick="openModal('travel')">
+                        <span class="hobby-icon">✈️</span>
+                        <div class="hobby-name" data-i18n-hobby="travel">旅行</div>
+                    </div>
+                    <div class="hobby-card" onclick="openModal('learning')">
+                        <span class="hobby-icon">📚</span>
+                        <div class="hobby-name" data-i18n-hobby="learning">阅读与学习</div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="section fade-in-section">
+                <h2 class="section-title" id="i18n-skills-title">实习经历与核心能力</h2>
+
+                <!-- 核心能力卡片 - 使用橄榄绿系边框强化结构 -->
+                <div class="fishbone-container">
+
+                    <!-- 运营与增长 (苔藓绿边框) -->
+                    <div class="major-bone" data-i18n-bone-container="bone1">
+                        <div class="bone-label" data-subtitle="深圳市蓝禾技术有限公司" data-i18n-bone="bone1-label">运营与增长 (Growth)
+                        </div>
+                        <div class="sub-bone" data-i18n-bone="bone1-sub1">SKU 优化模型建立，聚焦产品同比增长58%</div>
+                        <div class="sub-bone" data-i18n-bone="bone1-sub2">单品 GMV 上涨 41\%，实现高效转化</div>
+                        <div class="sub-bone" data-i18n-bone="bone1-sub3">店铺升至五星活跃，保障平台推流</div>
+                    </div>
+
+                    <!-- 内容与营销 (柔和橄榄边框) -->
+                    <div class="major-bone" data-i18n-bone-container="bone2">
+                        <div class="bone-label" data-subtitle="深圳市九木文化传媒有限公司" data-i18n-bone="bone2-label">内容与营销
+                            (Marketing)</div>
+                        <div class="sub-bone" data-i18n-bone="bone2-sub1">抖音/小红书选题策划，精准定位受众</div>
+                        <div class="sub-bone" data-i18n-bone="bone2-sub2">累计观看量 100W+，提升品牌曝光</div>
+                        <div class="sub-bone" data-i18n-bone="bone2-sub3">高效执行品牌方合作项目</div>
+                    </div>
+
+                    <!-- 数据分析与策略 (浅灰绿边框) -->
+                    <div class="major-bone" data-i18n-bone-container="bone3">
+                        <div class="bone-label" data-subtitle="跨职能协作能力" data-i18n-bone="bone3-label">数据分析与策略 (Strategy)
+                        </div>
+                        <div class="sub-bone" data-i18n-bone="bone3-sub1">A/B Test 数据收集，为决策提供依据</div>
+                        <div class="sub-bone" data-i18n-bone="bone3-sub2">FABE 模型系统性分析，输出文档分享</div>
+                        <div class="sub-bone" data-i18n-bone="bone3-sub3">视频完播率/赞播比分析，优化内容质量</div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="section fade-in-section">
+                <h2 class="section-title" id="i18n-contact-title">联系方式</h2>
+                <div class="contact-row">
+                    <button class="contact-btn btn-email" id="i18n-btn-email"
+                        onclick="window.location.href='mailto:example@email.com'">
+                        ✉️ 发送邮件
+                    </button>
+
+                    <button class="contact-btn btn-wechat" id="i18n-btn-wechat" onclick="copyWeChat('Alex_WeChatID')">
+                        💬 复制微信
+                    </button>
+
+                    <a href="file/uploaded/张湘 - 澳门科技大学 - 秋招简历 ..pdf" download="张湘-秋招简历.pdf"
+                        class="contact-btn btn-download" id="i18n-btn-download">
+                        ⬇️ 下载简历
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-card" id="modalCard">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <h3 class="modal-title" id="modalTitle">标题</h3>
+            <div class="modal-body" id="modalBody">
+                内容加载中...
+            </div>
+        </div>
+    </div>
+
+
+    <div class="toast" id="toast">微信号已复制到剪贴板！</div>
 
     <script>
-        // 自动更新年份和日期
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-        document.getElementById('updateDate').textContent = new Date().toLocaleDateString('zh-CN');
+        // --- 语言配置 ---
+        let currentLang = 'cn';
 
-        // 平滑滚动导航
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                window.scrollTo({
-                    top: targetElement.offsetTop - 70,
-                    behavior: 'smooth'
-                });
+        const LANG_CONTENT = {
+            'cn': {
+                'page-title': '专业橄榄绿风格主页',
+                'name': '张三 (Alex)',
+                'tagline': '独立开发者 / 摄影爱好者 / 终身学习者',
+                // 已更新: 滚动条内容简化为 "WELCOME TO MY WORLD ·"
+                'marquee': 'WELCOME TO MY WORLD ·',
+                'about-title': '关于我',
+                'about-text': '你好！我是一名充满热情的前端开发者。我热衷于创造简洁、高效且美观的数字产品。我专注于将用户体验设计和强大的工程能力相结合，以交付稳定、可靠的解决方案。我相信技术是为了更好地服务于人。',
+                'hobbies-title': '我的爱好与经历',
+                'photography': '摄影',
+                'travel': '旅行',
+                'learning': '阅读与学习',
+                'skills-title': '实习经历与核心能力',
+                'bone1-label': '运营与增长 (Growth)',
+                'bone1-sub1': 'SKU 优化模型建立，聚焦产品同比增长58%',
+                'bone1-sub2': '单品 GMV 上涨 41\%，实现高效转化',
+                'bone1-sub3': '店铺升至五星活跃，保障平台推流',
+                'bone2-label': '内容与营销 (Marketing)',
+                'bone2-sub1': '抖音/小红书选题策划，精准定位受众',
+                'bone2-sub2': '累计观看量 100W+，提升品牌曝光',
+                'bone2-sub3': '高效执行品牌方合作项目',
+                'bone3-label': '数据分析与策略 (Strategy)',
+                'bone3-sub1': 'A/B Test 数据收集，为决策提供依据',
+                'bone3-sub2': 'FABE 模型系统性分析，输出文档分享',
+                'bone3-sub3': '视频完播率/赞播比分析，优化内容质量',
+                'contact-title': '联系方式',
+                'btn-email': '✉️ 发送邮件',
+                'btn-wechat': '💬 复制微信',
+                'btn-download': '⬇️ 下载简历',
+                'modal-photo-title': '📷 摄影作品',
+                'modal-photo-content': `
+                    <p>摄影是我观察世界的方式。我喜欢街头摄影和极简主义构图。</p>
+                    <div style="margin-top:15px; font-weight:bold; color:#3D422F;">代表系列：</div>
+                    <p>《城市孤独感》、《光影几何》</p>
+                    <div style="margin-top:10px;">
+                        <span class="project-tag">极简主义</span>
+                        <span class="project-tag">纪实</span>
+                    </div>
+                `,
+                'modal-travel-title': '✈️ 旅行足迹',
+                'modal-travel-content': `
+                    <p>每年我都会安排 2-3 次深度旅行，探索不同的文化与风景。旅行让我保持开阔的视野。</p>
+                    <div style="margin-top:15px; font-weight:bold; color:#3D422F;">最近打卡：</div>
+                    <p>云南大理（数字游民体验）、日本京都（红叶季）。</p>
+                `,
+                'modal-learning-title': '📚 阅读与学习',
+                'modal-learning-content': `
+                    <p>保持持续学习是我的核心价值观。最近正在深入研究 Web3 和 AI 辅助编程。</p>
+                    <div style="margin-top:15px; font-weight:bold; color:#3D422F;">正在阅读：</div>
+                    <p>《纳瓦尔宝典》、《黑客与画家》。</p>
+                    <div style="margin-top:10px;">
+                        <span class="project-tag">Web3</span>
+                        <span class="project-tag">工程效能</span>
+                    </div>
+                `,
+                'toast-copy': '微信号 "{id}" 已复制',
+                'toast-fail': '复制失败，请手动复制',
+                'toggle-label': 'English'
+            },
+            'en': {
+                'page-title': 'Professional Olive Green Portfolio',
+                'name': 'Alex Zhang',
+                'tagline': 'Independent Developer / Photography Enthusiast / Lifelong Learner',
+                // 已更新: 滚动条内容简化为 "WELCOME TO MY WORLD ·"
+                'marquee': 'WELCOME TO MY WORLD ·',
+                'about-title': 'ABOUT ME',
+                'about-text': 'Hello! I am a passionate frontend developer. I am keen on creating clean, efficient, and aesthetic digital products. I focus on combining UX design with strong engineering capability to deliver stable, reliable solutions. I believe technology should primarily serve people.',
+                'hobbies-title': 'HOBBIES & EXPERIENCE',
+                'photography': 'Photography',
+                'travel': 'Travel',
+                'learning': 'Reading & Learning',
+                'skills-title': 'INTERNSHIPS & CORE SKILLS',
+                'bone1-label': 'OPERATIONS & GROWTH',
+                'bone1-sub1': 'SKU Optimization Model, Focused Product GMV +58%',
+                'bone1-sub2': 'Single Item GMV Increased by 41%',
+                'bone1-sub3': 'Elevated Store to 5-Star Status',
+                'bone2-label': 'CONTENT & MARKETING',
+                'bone2-sub1': 'Douyin/Xiaohongshu Content Planning',
+                'bone2-sub1': 'Douyin/Xiaohongshu Content Planning',
+                'bone2-sub2': 'Cumulative Views 1M+, Increased Exposure',
+                'bone2-sub3': 'Executed Brand Collaboration Projects',
+                'bone3-label': 'DATA ANALYSIS & STRATEGY',
+                'bone3-sub1': 'A/B Test Data Collection for Informed Decisions',
+                'bone3-sub2': 'Systematic Analysis using FABE Model',
+                'bone3-sub3': 'Video Completion/Like Ratio Analysis for Optimization',
+                'contact-title': 'CONTACT',
+                'btn-email': '✉️ Send Email',
+                'btn-wechat': '💬 Copy WeChat ID',
+                'btn-download': '⬇️ Download CV',
+                'modal-photo-title': '📷 Photography Portfolio',
+                'modal-photo-content': `
+                    <p>Photography is how I observe the world. I enjoy street photography and minimalist compositions.</p>
+                    <div style="margin-top:15px; font-weight:bold; color:#3D422F;">Key Series:</div>
+                    <p>"Urban Solitude," "Light & Shadow Geometry"</p>
+                    <div style="margin-top:10px;">
+                        <span class="project-tag">Minimalism</span>
+                        <span class="project-tag">Documentary</span>
+                    </div>
+                `,
+                'modal-travel-title': '✈️ Travel Log',
+                'modal-travel-content': `
+                    <p>I plan 2-3 in-depth trips annually to explore different cultures and landscapes. Travel keeps my perspective broad.</p>
+                    <div style="margin-top:15px; font-weight:bold; color:#3D422F;">Recently Visited:</div>
+                    <p>Dali, Yunnan (Digital Nomad experience), Kyoto, Japan (Autumn foliage).</p>
+                `,
+                'modal-learning-title': '📚 Reading & Learning',
+                'modal-learning-content': `
+                    <p>Sustained learning is my core value. I am currently diving deep into Web3 and AI-assisted programming.</p>
+                    <div style="margin-top:15px; font-weight:bold; color:#3D422F;">Currently Reading:</div>
+                    <p>"The Almanack of Naval Ravikant," "Hackers & Painters."</p>
+                    <div style="margin-top:10px;">
+                        <span class="project-tag">Web3</span>
+                        <span class="project-tag">Engineering Efficiency</span>
+                    </div>
+                `,
+                'toast-copy': 'WeChat ID "{id}" Copied',
+                'toast-fail': 'Copy failed, please copy manually',
+                'toggle-label': '中文'
+            }
+        };
+
+        // --- 核心语言切换函数 ---
+        function switchLanguage(lang) {
+            currentLang = lang;
+            const content = LANG_CONTENT[lang];
+
+            // 1. 更新主文本内容 (通过 ID)
+            document.getElementById('i18n-page-title').textContent = content['page-title'];
+            document.getElementById('i18n-name').textContent = content['name'];
+            document.getElementById('i18n-tagline').textContent = content['tagline'];
+            // 确保跑马灯内容被正确设置
+            document.getElementById('i18n-marquee').innerHTML = `<span class="marquee-text">${content['marquee']}</span><span class="marquee-text">${content['marquee']}</span>`;
+            document.getElementById('i18n-about-title').textContent = content['about-title'];
+            document.getElementById('i18n-about-text').textContent = content['about-text'];
+            document.getElementById('i18n-hobbies-title').textContent = content['hobbies-title'];
+            document.getElementById('i18n-skills-title').textContent = content['skills-title'];
+            document.getElementById('i18n-contact-title').textContent = content['contact-title'];
+
+            // 2. 更新按钮文本
+            document.getElementById('i18n-btn-email').textContent = content['btn-email'];
+            document.getElementById('i18n-btn-wechat').textContent = content['btn-wechat'];
+            document.getElementById('i18n-btn-download').textContent = content['btn-download'];
+            document.getElementById('langToggle').textContent = content['toggle-label'];
+
+            // 3. 更新爱好卡片和能力卡片子项 (通过 data attribute)
+            document.querySelectorAll('[data-i18n-hobby]').forEach(el => {
+                const key = el.getAttribute('data-i18n-hobby');
+                el.textContent = content[key];
             });
+            document.querySelectorAll('[data-i18n-bone]').forEach(el => {
+                const key = el.getAttribute('data-i18n-bone');
+                el.textContent = content[key];
+            });
+            document.querySelectorAll('.bone-label').forEach(el => {
+                const key = el.getAttribute('data-i18n-bone');
+                el.textContent = content[key];
+                // Update subtitle data attribute
+                const subtitleKey = el.getAttribute('data-i18n-bone').replace('-label', '');
+                const boneContainer = document.querySelector(`[data-i18n-bone-container="${subtitleKey}"]`);
+                if (boneContainer) {
+                    const subtitle = boneContainer.querySelector('.bone-label').getAttribute('data-subtitle');
+                    el.setAttribute('data-subtitle', subtitle);
+                }
+            });
+
+            // 4. 更新 HTML lang 属性
+            document.documentElement.lang = lang === 'cn' ? 'zh-CN' : 'en';
+
+            if (modalOverlay.classList.contains('active')) {
+                closeModal();
+            }
+        }
+
+        // --- 切换语言逻辑 ---
+        function toggleLanguage() {
+            const newLang = currentLang === 'cn' ? 'en' : 'cn';
+            switchLanguage(newLang);
+        }
+
+        // --- 模态窗口数据和逻辑 ---
+        function getModalContent(type, lang) {
+            const content = LANG_CONTENT[lang];
+            switch (type) {
+                case 'photography': return { title: content['modal-photo-title'], content: content['modal-photo-content'] };
+                case 'travel': return { title: content['modal-travel-title'], content: content['modal-travel-content'] };
+                case 'learning': return { title: content['modal-learning-title'], content: content['modal-learning-content'] };
+                default: return { title: '', content: '' };
+            }
+        }
+
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+
+        function openModal(type) {
+            const data = getModalContent(type, currentLang);
+            if (data.title) {
+                modalTitle.innerHTML = data.title;
+                modalBody.innerHTML = data.content;
+                modalOverlay.classList.add('active');
+                // Ensure the marquee is visible again if it was hidden
+                const marquee = document.querySelector('.marquee-strip');
+                if (marquee) marquee.style.opacity = '1';
+            }
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+        }
+
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape" && modalOverlay.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        // --- 复制功能逻辑 ---
+        function copyWeChat(wechatId) {
+            const content = LANG_CONTENT[currentLang];
+
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(wechatId).then(() => {
+                    showToast(content['toast-copy'].replace('{id}', wechatId));
+                }).catch(err => {
+                    console.error('复制失败:', err);
+                    showToast(content['toast-fail']);
+                });
+            } else {
+                const textArea = document.createElement("textarea");
+                textArea.value = wechatId;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast(content['toast-copy'].replace('{id}', wechatId));
+                } catch (err) {
+                    showToast(content['toast-fail']);
+                }
+                document.body.removeChild(textArea);
+            }
+        }
+
+        // --- 提示框逻辑 ---
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+
+        // --- 页面加载和初始化 ---
+        window.addEventListener('load', () => {
+            // 初始化语言
+            switchLanguage('cn');
         });
     </script>
 </body>
