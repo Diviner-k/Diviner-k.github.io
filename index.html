@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>张三的个人简介</title>
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">首页</a></li>
+                <li><a href="#about">关于我</a></li>
+                <li><a href="#skills">技能</a></li>
+                <li><a href="#projects">项目</a></li>
+                <li><a href="#contact">联系</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                    alt="张三的头像" class="avatar">
+                <h1>你好，我是 <span class="highlight">张三</span></h1>
+                <p class="tagline">前端开发者 | 技术爱好者 | 问题解决者</p>
+                <p class="intro">我热衷于创造美观、易用且高效的Web体验，专注于现代前端技术和最佳实践。</p>
+                <a href="#contact" class="btn">联系我</a>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <div class="container">
+                <h2>关于我</h2>
+                <div class="about-content">
+                    <p>我是一名拥有3年经验的前端开发工程师，对Web技术充满热情。毕业于XX大学计算机科学专业，目前在YY科技公司担任前端开发职位。</p>
+                    <p>我坚信优秀的代码和用户体验可以改变世界。在工作中，我注重细节，喜欢解决复杂问题，并乐于学习新技术。</p>
+                    <p>空闲时间，我喜欢阅读技术博客、参加开发者大会，并在开源项目中贡献代码。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section bg-light">
+            <div class="container">
+                <h2>技术技能</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3><i class="fas fa-code"></i> 前端技术</h3>
+                        <ul>
+                            <li>HTML5 & CSS3</li>
+                            <li>JavaScript (ES6+)</li>
+                            <li>React & Vue.js</li>
+                            <li>响应式设计</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3><i class="fas fa-tools"></i> 开发工具</h3>
+                        <ul>
+                            <li>Git & GitHub</li>
+                            <li>Webpack & Vite</li>
+                            <li>VS Code</li>
+                            <li>Chrome DevTools</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3><i class="fas fa-language"></i> 语言能力</h3>
+                        <ul>
+                            <li>中文 (母语)</li>
+                            <li>英语 (流利, CET-6)</li>
+                            <li>日语 (基础, N3)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section">
+            <div class="container">
+                <h2>项目作品</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <h3>电商管理系统</h3>
+                        <p>基于React和Node.js开发的完整电商后台管理系统，包含商品管理、订单处理和数据分析模块。</p>
+                        <a href="#" class="project-link">查看详情 →</a>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>数据可视化平台</h3>
+                        <p>使用D3.js和Vue.js构建的数据可视化仪表板，支持多种图表类型和数据实时更新。</p>
+                        <a href="#" class="project-link">查看详情 →</a>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3>旅行助手App</h3>
+                        <p>跨平台移动应用，使用React Native开发，提供行程规划、景点推荐和实时导航功能。</p>
+                        <a href="#" class="project-link">查看详情 →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section bg-light">
+            <div class="container">
+                <h2>联系我</h2>
+                <p class="contact-intro">对我的工作感兴趣？欢迎通过以下方式与我联系！</p>
+                <div class="contact-methods">
+                    <a href="mailto:zhangsan@example.com" class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>zhangsan@example.com</span>
+                    </a>
+                    <a href="https://github.com/yourusername" class="contact-item" target="_blank">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="https://linkedin.com/in/yourusername" class="contact-item" target="_blank">
+                        <i class="fab fa-linkedin"></i>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="tel:+8613800138000" class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+86 138 0013 8000</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© <span id="currentYear"></span> 张三 版权所有。本页面托管于GitHub Pages。</p>
+            <p class="footer-note">最后更新于: <span id="updateDate"></span></p>
+        </div>
+    </footer>
+
+    <script>
+        // 自动更新年份和日期
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        document.getElementById('updateDate').textContent = new Date().toLocaleDateString('zh-CN');
+
+        // 平滑滚动导航
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                window.scrollTo({
+                    top: targetElement.offsetTop - 70,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
